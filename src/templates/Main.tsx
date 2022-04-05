@@ -25,11 +25,9 @@ const links = [
 
 function Main(props: IMainProps) {
   const router = useRouter();
-
   return (
     <div className="w-full px-1 text-gray-700 antialiased">
       {props.meta}
-
       <div className="mx-auto max-w-screen-2xl">
         <div className="text-center flex-column self-center justify-center">
           <h1 className="text-2xl m-8">Best rated movies on Netflix </h1>
