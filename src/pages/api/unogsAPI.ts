@@ -6,11 +6,11 @@ async function getNetflixData(releaseDate: string) {
     method: 'GET',
     headers: {
       'X-RapidAPI-Host': 'unogs-unogs-v1.p.rapidapi.com',
-      'X-RapidAPI-Key': 'Th1V3MxFGBmshvwrXsoQYJM1DKP5p1KyEeejsnltU7fpC6ZQNA',
+      'X-RapidAPI-Key': process.env.RAPID_API_KEY,
     },
   };
 
-  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&country_list=73&limit=80`;
+  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&country_list=73&limit=10`;
   try {
     const res = await fetch(url, options);
     return (await res.json())?.results as Movie[];
