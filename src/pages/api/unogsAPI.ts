@@ -1,24 +1,5 @@
-export interface Movie {
-  title: string;
-  img: string;
-  title_type: string;
-  netflix_id: number;
-  synopsis: string;
-  rating: string;
-  year: string;
-  title_date: string;
-  imdb: any;
-}
-
-function compare(a: Movie, b: Movie) {
-  if (a.imdb.imdbRating > b.imdb.imdbRating) {
-    return -1;
-  }
-  if (a.imdb.imdbRating < b.imdb.imdbRating) {
-    return 1;
-  }
-  return 0;
-}
+import { getImdbData } from './imdb';
+import { sortMovies, Movie } from './utils';
 
 async function getNetflixData(releaseDate: string) {
   const options = {
@@ -29,16 +10,14 @@ async function getNetflixData(releaseDate: string) {
     },
   };
 
-  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&limit=5`;
-  const res = await fetch(url, options);
-  return (await res.json())?.results as Movie[];
-}
-
-async function getImdbData(title: string) {
-  const url = `https://www.omdbapi.com/?apikey=1ffc9d4b&t=${title}`;
-  const imdbDataRes = await fetch(url);
-  const result = await imdbDataRes.json();
-  return result;
+  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&limit=30`;
+  try {
+    const res = await fetch(url, options);
+    return (await res.json())?.results as Movie[];
+  } catch (err) {
+    console.log('Fetch error', url);
+  }
+  return [];
 }
 
 export async function getMovies(releaseDate: string) {
@@ -52,6 +31,6 @@ export async function getMovies(releaseDate: string) {
     )
   )
     .filter((m) => m.imdb.imdbRating > 0)
-    .sort(compare);
+    .sort(sortMovies);
   return movies;
 }

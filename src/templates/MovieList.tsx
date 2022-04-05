@@ -1,11 +1,11 @@
-import { Movie } from '@/pages/api/unogsAPI';
+import { Movie } from '@/pages/api/utils';
 
 const Star = () => {
   return (
     <svg
       width="24"
       height="24"
-      className="ipc-icon ipc-icon--star-inline"
+      className="w-4"
       viewBox="0 0 24 24"
       fill="#f5c518"
       role="presentation"
@@ -33,7 +33,7 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
               alt={movie.title}
             />
             <div className="p-4">
-              <p className="flex w-full gap-2 self-center">
+              <p className="flex w-full gap-2 self-center items-center">
                 <Star /> {movie?.imdb?.imdbRating}
               </p>
               <p className="w-full">{movie.title}</p>
