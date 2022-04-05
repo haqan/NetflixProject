@@ -19,6 +19,7 @@
 .DS_Store
 *.pem
 Thumbs.db
+/src/test.http
 
 # debug
 npm-debug.log*
