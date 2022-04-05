@@ -22,7 +22,7 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
     <ul className="grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
       {movies.map((movie) => (
         <li
-          key={`${movie.title} ${movie.id}`}
+          key={movie.title}
           className="relative flex h-full w-full flex-col rounded-md bg-black text-white"
         >
           <img
