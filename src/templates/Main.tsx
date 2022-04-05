@@ -1,11 +1,7 @@
 import { ReactNode } from 'react';
 
-import Divider from '@mui/material/Divider';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-import { AppConfig } from '@/utils/AppConfig';
-import link from 'next/link';
 
 type IMainProps = {
   meta: ReactNode;
