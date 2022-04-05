@@ -30,6 +30,7 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
             <img
               src={movie.img}
               className="w-full rounded-t-md object-contain"
+              alt={movie.title}
             />
             <div className="p-4">
               <p className="flex w-full gap-2 self-center">

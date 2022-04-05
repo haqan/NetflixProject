@@ -29,7 +29,7 @@ async function getNetflixData(releaseDate: string) {
     },
   };
 
-  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&limit=50`;
+  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&limit=5`;
   const res = await fetch(url, options);
   return (await res.json())?.results as Movie[];
 }
