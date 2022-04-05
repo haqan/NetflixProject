@@ -1,4 +1,5 @@
 import { Movie } from '@/pages/api/utils';
+import Link from '@mui/material/Link';
 
 const Star = () => {
   return (
@@ -20,25 +21,28 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
   return (
     <ul className="grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
       {movies.map((movie) => (
-        <li key={movie.title}>
-          <a
-            href={`https://www.netflix.com/watch/${movie.netflix_id}`}
-            target="_blank"
-            rel="noreferrer"
-            className="relative flex h-full w-full flex-col rounded-md bg-black text-white"
-          >
-            <img
-              src={movie.img}
-              className="w-full rounded-t-md object-contain"
-              alt={movie.title}
-            />
-            <div className="p-4">
-              <p className="flex w-full gap-2 self-center items-center">
-                <Star /> {movie?.imdb?.imdbRating}
-              </p>
-              <p className="w-full">{movie.title}</p>
-            </div>
-          </a>
+        <li
+          key={`${movie.title} ${movie.id}`}
+          className="relative flex h-full w-full flex-col rounded-md bg-black text-white"
+        >
+          <img
+            src={movie.img}
+            className="w-full rounded-t-md object-contain"
+            alt={movie.title}
+          />
+          <div className="p-4">
+            <p className="flex w-full gap-2 self-center items-center">
+              <Star /> {movie?.imdb?.imdbRating}
+            </p>
+            <p className="w-full">{movie.title}</p>
+            <Link
+              component="button"
+              variant="body1"
+              href={`https://www.netflix.com/watch/${movie.netflix_id}`}
+            >
+              Watch on Netflix
+            </Link>
+          </div>
         </li>
       ))}
     </ul>

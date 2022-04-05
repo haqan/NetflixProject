@@ -10,7 +10,7 @@ async function getNetflixData(releaseDate: string) {
     },
   };
 
-  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&limit=30`;
+  const url = `https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&country_list=73&limit=50`;
   try {
     const res = await fetch(url, options);
     return (await res.json())?.results as Movie[];
@@ -22,6 +22,7 @@ async function getNetflixData(releaseDate: string) {
 
 export async function getMovies(releaseDate: string) {
   const netflix = await getNetflixData(releaseDate);
+  const addedTitles = new Set();
   const movies = (
     await Promise.all(
       netflix.map(async (n) => ({
@@ -30,7 +31,12 @@ export async function getMovies(releaseDate: string) {
       }))
     )
   )
-    .filter((m) => m.imdb.imdbRating > 0)
+    .filter((m) => {
+      const duplicate = addedTitles.has(m.title);
+      addedTitles.add(m.title);
+      return !duplicate && m.imdb.imdbRating > 0;
+    })
     .sort(sortMovies);
+
   return movies;
 }

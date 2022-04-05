@@ -1,4 +1,4 @@
-GET https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=2022-03-28&limit=30&order_by=date_asc
+GET https://unogs-unogs-v1.p.rapidapi.com/search/titles?type=movie&new_date=2022-03-28&limit=20&country_andorunique=&country_list=73&order_by=date_asc
 X-Rapidapi-Host: unogs-unogs-v1.p.rapidapi.com
 X-Rapidapi-Key: Th1V3MxFGBmshvwrXsoQYJM1DKP5p1KyEeejsnltU7fpC6ZQNA
 
