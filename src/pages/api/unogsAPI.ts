@@ -6,7 +6,7 @@ async function getNetflixData(releaseDate: string) {
     method: 'GET',
     headers: {
       'X-RapidAPI-Host': 'unogs-unogs-v1.p.rapidapi.com',
-      'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+      'X-RapidAPI-Key': process.env.RAPID_API_KEY || '',
     },
   };
 
