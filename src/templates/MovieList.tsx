@@ -1,5 +1,27 @@
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 import { Movie } from '@/pages/api/utils';
 import Button from '@mui/material/Button';
+
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: '#fff',
+          backgroundColor: 'rgb(127 29 29)',
+          borderColor: '#888',
+          borderWidth: '1px',
+
+          '&:hover': {
+            backgroundColor: 'rgb(239 68 68)',
+            borderColor: '#888',
+          },
+        },
+      },
+    },
+  },
+});
 
 const Star = () => {
   return (
@@ -19,7 +41,7 @@ const Star = () => {
 const MovieList = ({ movies }: { movies: Movie[] }) => {
   if (!movies) return null;
   return (
-    <ul className="grid gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+    <ul className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
       {movies.map((movie) => (
         <li
           key={movie.title}
@@ -30,18 +52,22 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
             className="w-full rounded-t-md object-contain"
             alt={movie.title}
           />
-          <div className="p-4">
-            <p className="flex w-full gap-2 self-center items-center">
+          <div className="p-4 text-base flex flex-col h-full">
+            <div className="flex w-full gap-2 self-center items-center">
               <Star /> {movie?.imdb?.imdbRating}
-            </p>
-            <p className="w-full">{movie.title}</p>
-            <Button
-              className="bg-red-900 text-black"
-              variant="outlined"
-              href={`https://www.netflix.com/watch/${movie.netflix_id}`}
-            >
-              Watch on Netflix
-            </Button>
+            </div>
+            <p className="w-full h-full">{movie.title}</p>
+            <ThemeProvider theme={theme}>
+              <Button
+                className="self-center text-xs antialiased"
+                variant="outlined"
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.netflix.com/watch/${movie.netflix_id}`}
+              >
+                Watch on Netflix
+              </Button>
+            </ThemeProvider>
           </div>
         </li>
       ))}
