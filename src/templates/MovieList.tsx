@@ -53,10 +53,17 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
             alt={movie.title}
           />
           <div className="p-4 text-base flex flex-col h-full">
-            <div className="flex w-full gap-2 self-center items-center">
-              <Star /> {movie?.imdb?.imdbRating}
+            <div className="flex w-full gap-2 self-end">
+              <a
+                className="flex gap-2 text-white"
+                href={`https://www.imdb.com/title/${movie.imdb.imdbID}`}
+              >
+                {' '}
+                <span className="text-slate-500">IMDB:</span> <Star />
+                {movie?.imdb?.imdbRating}
+              </a>
             </div>
-            <p className="w-full h-full">{movie.title}</p>
+            <p className="w-full h-full self-center">{movie.title}</p>
             <ThemeProvider theme={theme}>
               <Button
                 className="self-center text-xs antialiased"
