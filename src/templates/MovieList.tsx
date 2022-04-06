@@ -1,5 +1,5 @@
 import { Movie } from '@/pages/api/utils';
-import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 
 const Star = () => {
   return (
@@ -35,13 +35,13 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
               <Star /> {movie?.imdb?.imdbRating}
             </p>
             <p className="w-full">{movie.title}</p>
-            <Link
-              component="button"
-              variant="body1"
+            <Button
+              className="bg-red-900 text-black"
+              variant="outlined"
               href={`https://www.netflix.com/watch/${movie.netflix_id}`}
             >
               Watch on Netflix
-            </Link>
+            </Button>
           </div>
         </li>
       ))}
