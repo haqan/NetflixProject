@@ -1,9 +1,20 @@
 import { getNetflixEntities, getNetflixEntity, NetflixEntity } from './netflix';
 import { getImdbData, IMDB } from './imdb';
-import { sortByImdbRating } from './utils';
 
 export interface Entity extends NetflixEntity {
   imdb?: IMDB;
+  internalLink: string;
+}
+
+function sortByImdbRating(a: Entity, b: Entity) {
+  if (!a.imdb || !b.imdb) return 0;
+  if (a.imdb.imdbRating > b.imdb.imdbRating) {
+    return -1;
+  }
+  if (a.imdb.imdbRating < b.imdb.imdbRating) {
+    return 1;
+  }
+  return 0;
 }
 
 export async function getEntities(releaseDate: string): Promise<Entity[]> {
@@ -14,6 +25,7 @@ export async function getEntities(releaseDate: string): Promise<Entity[]> {
       netflixEntities.map(async (n) => ({
         ...n,
         imdb: await getImdbData(n.title, n.year),
+        internalLink: `/titles/${n.netflix_id}`,
       }))
     )
   )

@@ -30,7 +30,7 @@ export async function getImdbData(
   title: string,
   year: string
 ): Promise<IMDB | undefined> {
-  const url = `https://www.omdbapi.com/?apikey=1ffc9d4b&t=${title}`;
+  const url = `https://www.omdbapi.com/?apikey=1ffc9d4b&t=${title}&year=${year}`;
   try {
     const imdbDataRes = await fetch(url);
     const result = await imdbDataRes.json();
@@ -45,5 +45,5 @@ export async function getImdbData(
   } catch (err) {
     console.log('Fetch error IMDB', url);
   }
-  return;
+  return undefined;
 }

@@ -38,10 +38,6 @@ const Star = () => {
   );
 };
 
-function getLink(movie: Entity) {
-  return `/titles/${movie.netflix_id}`;
-}
-
 const MovieList = ({ entities }: { entities: Entity[] }) => {
   if (!entities) return null;
   return (
@@ -51,7 +47,7 @@ const MovieList = ({ entities }: { entities: Entity[] }) => {
           key={movie.netflix_id}
           className="relative flex h-full w-full flex-col rounded-md bg-black text-white"
         >
-          <Link href={getLink(movie)}>
+          <Link href={movie.internalLink}>
             <img
               src={movie.img}
               className="w-full rounded-t-md object-contain"
