@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-import { Movie } from '@/pages/api/utils';
+import { Entity } from '@/pages/api/entities';
 import Button from '@mui/material/Button';
+import Link from 'next/link';
 
 const theme = createTheme({
   components: {
@@ -38,25 +38,31 @@ const Star = () => {
   );
 };
 
-const MovieList = ({ movies }: { movies: Movie[] }) => {
-  if (!movies) return null;
+function getLink(movie: Entity) {
+  return `/titles/${movie.netflix_id}`;
+}
+
+const MovieList = ({ entities }: { entities: Entity[] }) => {
+  if (!entities) return null;
   return (
     <ul className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-      {movies.map((movie) => (
+      {entities.map((movie) => (
         <li
-          key={movie.title}
+          key={movie.netflix_id}
           className="relative flex h-full w-full flex-col rounded-md bg-black text-white"
         >
-          <img
-            src={movie.img}
-            className="w-full rounded-t-md object-contain"
-            alt={movie.title}
-          />
+          <Link href={getLink(movie)}>
+            <img
+              src={movie.img}
+              className="w-full rounded-t-md object-contain"
+              alt={movie.title}
+            />
+          </Link>
           <div className="p-4 text-base flex flex-col h-full">
-            <div className="flex w-full gap-2 self-end">
+            <div className="flex gap-2 self-end">
               <a
                 className="flex gap-2 text-white"
-                href={`https://www.imdb.com/title/${movie.imdb.imdbID}`}
+                href={`https://www.imdb.com/title/${movie.imdb?.imdbID}`}
               >
                 {' '}
                 <span className="text-slate-500">IMDB:</span> <Star />

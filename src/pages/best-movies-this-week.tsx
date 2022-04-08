@@ -2,28 +2,28 @@ import { InferGetStaticPropsType } from 'next';
 import MovieList from '@/templates/MovieList';
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/templates/Main';
-import { getMovies } from './api/unogsAPI';
+import { getEntities } from './api/entities';
 import { DateTime } from 'luxon';
 
-const BestMoviesThisMonth = ({
-  moviesMonth,
+const BestMoviesThisWeek = ({
+  entities,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Main meta={<Meta title="" description="" />}>
-      <MovieList movies={moviesMonth} />
+      <MovieList entities={entities} />
     </Main>
   );
 };
 
 export async function getStaticProps() {
-  const moviesMonth = await getMovies(
+  const entities = await getEntities(
     DateTime.now().minus({ weeks: 1 }).toISODate()
   );
   return {
     props: {
-      moviesMonth,
+      entities,
     },
   };
 }
 
-export default BestMoviesThisMonth;
+export default BestMoviesThisWeek;

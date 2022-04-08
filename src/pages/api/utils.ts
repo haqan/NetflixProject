@@ -1,16 +1,7 @@
-export interface Movie {
-  title: string;
-  img: string;
-  title_type: string;
-  netflix_id: number;
-  synopsis: string;
-  rating: string;
-  year: string;
-  title_date: string;
-  imdb: any;
-}
+import { Entity } from './entities';
 
-export function sortMovies(a: Movie, b: Movie) {
+export function sortByImdbRating(a: Entity, b: Entity) {
+  if (!a.imdb || !b.imdb) return 0;
   if (a.imdb.imdbRating > b.imdb.imdbRating) {
     return -1;
   }

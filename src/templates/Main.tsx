@@ -30,13 +30,13 @@ function Main(props: IMainProps) {
       {props.meta}
       <div className="mx-auto max-w-screen-2xl">
         <div className="text-center flex-column self-center justify-center">
-          <h1 className="text-2xl m-8">Best rated movies on Netflix </h1>
-          <ul className="inline-flex gap-4">
+          <h1 className="text-2xl m-8">Best movies on Netflix</h1>
+          <ul className="inline-flex gap-4 text-xl">
             {links.map((link) => {
               return router.pathname.endsWith(link.href) ? (
-                <li>{link.value}</li>
+                <li key={link.value}>{link.value}</li>
               ) : (
-                <li>
+                <li key={link.value}>
                   <Link href={link.href}>{link.value}</Link>
                 </li>
               );

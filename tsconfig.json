@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -36,18 +32,11 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/public/*": [
-        "./public/*"
-      ]
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"]
     }
   },
-  "exclude": [
-    "./out/**/*",
-    "./node_modules/**/*"
-  ],
+  "exclude": ["./out/**/*", "./node_modules/**/*"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
@@ -55,6 +44,7 @@
     "src/features/movies/movies.js",
     "src/features/movies/movies.js",
     "src/features/movies/movies.js",
-    "public/assets/icons/star.js"
+    "public/assets/icons/star.js",
+    "src/pages/titles/[id].jsx"
   ]
 }
