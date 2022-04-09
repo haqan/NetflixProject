@@ -29,8 +29,8 @@ function Main(props: IMainProps) {
     <div className="w-full px-1 text-gray-700 antialiased">
       {props.meta}
       <div className="mx-auto max-w-screen-2xl">
-        <div className="text-center flex-column self-center justify-center">
-          <h1 className="text-2xl m-8">Best movies on Netflix</h1>
+        <div className="flex-column justify-center self-center text-center">
+          <h1 className="m-8 text-2xl">Best movies on Netflix</h1>
           <ul className="inline-flex gap-4 text-xl">
             {links.map((link) => {
               return router.pathname.endsWith(link.href) ? (

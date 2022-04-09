@@ -1,7 +1,6 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Entity } from '@/pages/api/entities';
 import Button from '@mui/material/Button';
-import Link from 'next/link';
 
 const theme = createTheme({
   components: {
@@ -41,20 +40,20 @@ const Star = () => {
 const MovieList = ({ entities }: { entities: Entity[] }) => {
   if (!entities) return null;
   return (
-    <ul className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
       {entities.map((movie) => (
         <li
           key={movie.netflix_id}
           className="relative flex h-full w-full flex-col rounded-md bg-black text-white"
         >
-          <Link href={movie.internalLink}>
+          <a href={movie.internalLink} target="_blank" rel="noreferrer">
             <img
               src={movie.img}
               className="w-full rounded-t-md object-contain"
               alt={movie.title}
             />
-          </Link>
-          <div className="p-4 text-base flex flex-col h-full">
+          </a>
+          <div className="flex h-full flex-col p-4 text-base">
             <div className="flex gap-2 self-end">
               <a
                 className="flex gap-2 text-white"
@@ -65,7 +64,7 @@ const MovieList = ({ entities }: { entities: Entity[] }) => {
                 {movie?.imdb?.imdbRating}
               </a>
             </div>
-            <p className="w-full h-full self-center">{movie.title}</p>
+            <p className="h-full w-full self-center">{movie.title}</p>
             <ThemeProvider theme={theme}>
               <Button
                 className="self-center text-xs antialiased"

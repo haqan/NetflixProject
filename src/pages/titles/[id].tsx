@@ -1,11 +1,12 @@
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/templates/Main';
 import { getEntity, getAllPossiblePaths } from '../api/entities';
+import { NetflixEntity } from '../api/netflix';
 
-export default function Title({ titleData = {} }) {
+export default function Title({ title }: NetflixEntity) {
   return (
     <Main meta={<Meta title="" description="" />}>
-      <h1>{titleData?.title}</h1>
+      <h1>{title}</h1>
     </Main>
   );
 }
@@ -19,12 +20,12 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: any) {
   // Fetch necessary data for the blog post using params.id
-  const titleData = await getEntity(params.id);
+  const entity = await getEntity(params.id);
   return {
     props: {
-      titleData,
+      entity,
     },
   };
 }

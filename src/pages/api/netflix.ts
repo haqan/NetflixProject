@@ -34,7 +34,7 @@ export async function getNetflixEntities(
   } catch (err) {
     console.log('Fetch error', url);
   }
-  return;
+  return undefined;
 }
 
 export async function getNetflixEntity(
@@ -55,5 +55,5 @@ export async function getNetflixEntity(
   } catch (err) {
     console.log('Fetch error', url);
   }
-  return;
+  return undefined;
 }

@@ -39,7 +39,7 @@ export async function getEntities(releaseDate: string): Promise<Entity[]> {
 }
 
 export async function getEntity(id: string) {
-  return await getNetflixEntity(id);
+  return getNetflixEntity(id);
 }
 
 export async function getAllPossiblePaths() {
