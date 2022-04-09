@@ -27,7 +27,7 @@ export async function getNetflixEntities(
     },
   };
 
-  const url = `${API_URL_PREFIX}/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&country_list=73&limit=20`;
+  const url = `${API_URL_PREFIX}/search/titles?type=movie&new_date=${releaseDate}&order_by=date_asc&country_list=73&limit=80`;
   try {
     const res = await fetch(url, options);
     return (await res.json())?.results as NetflixEntity[];
