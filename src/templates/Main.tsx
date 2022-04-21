@@ -10,16 +10,8 @@ type IMainProps = {
 
 const links = [
   {
-    href: '/best-movies-this-week',
-    value: 'This week',
-  },
-  {
-    href: '/best-movies-this-month',
-    value: 'This month',
-  },
-  {
-    href: '/best-movies-this-year',
-    value: 'This year',
+    href: '/',
+    value: 'Best movies on Netflix',
   },
 ];
 
@@ -30,7 +22,9 @@ function Main(props: IMainProps) {
       {props.meta}
       <div className="mx-auto max-w-screen-2xl">
         <div className="flex-column justify-center self-center text-center">
-          <h1 className="m-8 text-2xl">Best movies on Netflix</h1>
+          <h1 className="m-8 text-3xl font-bold text-gray-400">
+            BEST MOVIES ON NETFLIX
+          </h1>
           <ul className="inline-flex gap-4 text-xl">
             {links.map((link) => {
               return router.pathname.endsWith(link.href) ? (

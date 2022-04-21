@@ -25,7 +25,7 @@ export async function getEntitiesByDate(releaseDate) {
         };
       })
     )
-  ).filter((m) => m.homepage);
+  ).filter((m) => m.homepage?.includes('netflix'));
   return entities;
 }
 

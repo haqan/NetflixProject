@@ -4,7 +4,8 @@ a {
   @apply text-blue-700;
 }
 
-a:hover {
+body {
+  @apply bg-slate-800;
 }
 
 @tailwind components;

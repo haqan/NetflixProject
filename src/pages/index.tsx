@@ -21,7 +21,7 @@ const BestMoviesThisWeek = ({
 
 export async function getStaticProps() {
   const entities = await getEntities(
-    DateTime.now().minus({ months: 1 }).toISODate()
+    DateTime.now().minus({ years: 1 }).toISODate()
   );
   return {
     props: {

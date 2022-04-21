@@ -89,7 +89,7 @@ export async function getMovies(releaseDate: string): Promise<Movie[]> {
   const movies = data.results;
   const promises = [];
   let page = 2;
-  while (page <= 3) {
+  while (page <= data.total_pages) {
     promises.push(fetchDiscoverMovies(releaseDate, page++));
   }
   const allMovies = (await Promise.all(promises)).map((m) => m.results);
