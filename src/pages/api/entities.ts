@@ -1,50 +1,47 @@
-import { getNetflixEntities, getNetflixEntity, NetflixEntity } from './netflix';
-import { getImdbData, IMDB } from './imdb';
+import {
+  getMovies,
+  getMovieDetails,
+  getConfig,
+  Movie,
+  MovieDetails,
+} from './themoviedb';
 
-export interface Entity extends NetflixEntity {
-  imdb?: IMDB;
+export interface Entity extends Movie, MovieDetails {
   internalLink: string;
+  img?: string;
 }
 
-function sortByImdbRating(a: Entity, b: Entity) {
-  if (!a.imdb || !b.imdb) return 0;
-  if (a.imdb.imdbRating > b.imdb.imdbRating) {
-    return -1;
-  }
-  if (a.imdb.imdbRating < b.imdb.imdbRating) {
-    return 1;
-  }
-  return 0;
+export async function getEntitiesByDate(releaseDate) {
+  const config = await getConfig();
+  const movies = await getMovies(releaseDate);
+  const entities = (
+    await Promise.all(
+      movies.map(async (m) => {
+        return {
+          ...m,
+          ...(await getMovieDetails(m.id)),
+          internalLink: `/movie/${m.id}`,
+          img: `${config.images.base_url}original${m.poster_path}`,
+        };
+      })
+    )
+  ).filter((m) => m.homepage);
+  return entities;
 }
 
 export async function getEntities(releaseDate: string): Promise<Entity[]> {
-  const netflixEntities = (await getNetflixEntities(releaseDate)) || [];
-  const addedEntities = new Set();
-  const handledEntities = (
-    await Promise.all(
-      netflixEntities.map(async (n) => ({
-        ...n,
-        imdb: await getImdbData(n.title, n.year),
-        internalLink: `/titles/${n.netflix_id}`,
-      }))
-    )
-  )
-    .filter((m) => {
-      const duplicate = addedEntities.has(m.title);
-      addedEntities.add(m.title);
-      return !duplicate && m.imdb?.imdbRating;
-    })
-    .sort(sortByImdbRating);
-  return handledEntities;
+  return getEntitiesByDate(releaseDate);
 }
 
 export async function getEntity(id: string) {
-  return getNetflixEntity(id);
+  return {
+    ...(await getMovieDetails(id)),
+  };
 }
 
 export async function getAllPossiblePaths() {
-  const netflixEntities = (await getNetflixEntities('2022-01-01')) || [];
-  return netflixEntities.map((m) => ({
-    params: { id: m.netflix_id.toString() },
+  const entities = await getEntitiesByDate('2022-01-01');
+  return entities.map((m) => ({
+    params: { id: m.id.toString() },
   }));
 }

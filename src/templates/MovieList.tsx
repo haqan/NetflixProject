@@ -1,6 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Entity } from '@/pages/api/entities';
 import Button from '@mui/material/Button';
+import Image from 'next/image';
 
 const theme = createTheme({
   components: {
@@ -43,35 +44,38 @@ const MovieList = ({ entities }: { entities: Entity[] }) => {
     <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
       {entities.map((movie) => (
         <li
-          key={movie.netflix_id}
+          key={movie.id}
           className="relative flex h-full w-full flex-col rounded-md bg-black text-white"
         >
-          <a href={movie.internalLink} target="_blank" rel="noreferrer">
-            <img
+          <a href={movie.internalLink}>
+            <Image
+              layout="responsive"
               src={movie.img}
               className="w-full rounded-t-md object-contain"
               alt={movie.title}
+              width={200}
+              height={300}
             />
           </a>
           <div className="flex h-full flex-col p-4 text-base">
             <div className="flex gap-2 self-end">
               <a
                 className="flex gap-2 text-white"
-                href={`https://www.imdb.com/title/${movie.imdb?.imdbID}`}
+                href={`https://www.imdb.com/title/${movie.imdb_id}`}
               >
                 {' '}
                 <span className="text-slate-500">IMDB:</span> <Star />
-                {movie?.imdb?.imdbRating}
+                {movie.vote_average}
               </a>
             </div>
-            <p className="h-full w-full self-center">{movie.title}</p>
+            <p className="m-0 h-full w-full self-center p-0">{movie.title}</p>
             <ThemeProvider theme={theme}>
               <Button
                 className="self-center text-xs antialiased"
                 variant="outlined"
                 target="_blank"
                 rel="noreferrer"
-                href={`https://www.netflix.com/watch/${movie.netflix_id}`}
+                href={movie.homepage}
               >
                 Watch on Netflix
               </Button>

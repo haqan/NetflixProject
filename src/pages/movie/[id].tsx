@@ -1,12 +1,16 @@
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/templates/Main';
 import { getEntity, getAllPossiblePaths } from '../api/entities';
-import { NetflixEntity } from '../api/netflix';
 
-export default function Title({ title }: NetflixEntity) {
+export default function Title(props = {}) {
+  const { title, tagline } = props.entity;
+  console.table(props.entity);
   return (
     <Main meta={<Meta title="" description="" />}>
-      <h1>{title}</h1>
+      <article className="flex flex-col justify-center items-center">
+        <h1 className="text-2xl">{title}</h1>
+        <h2>{tagline}</h2>
+      </article>
     </Main>
   );
 }
