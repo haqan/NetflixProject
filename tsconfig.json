@@ -45,6 +45,6 @@
     "src/features/movies/movies.js",
     "src/features/movies/movies.js",
     "public/assets/icons/star.js",
-    "src/pages/titles/[id].jsx"
+    "src/pages/movie/[id].tsx"
   ]
 }
