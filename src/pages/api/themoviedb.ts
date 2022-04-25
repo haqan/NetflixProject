@@ -77,7 +77,7 @@ export async function getConfig(): Promise<Config> {
   return res.json();
 }
 
-async function fetchDiscoverMovies(releaseDate, page = 1) {
+async function fetchDiscoverMovies(releaseDate: string, page = 1) {
   const url = `${API_URL_PREFIX}/discover/movie?primary_release_date.gte=${releaseDate}&api_key=${process.env.THE_MOVIE_DB_API_KEY}&with_watch_providers=8&watch_region=SE&sort_by=vote_average.desc&vote_count.gte=100&page=${page}`;
   const response = await fetch(url);
   const data = await response.json();
@@ -96,16 +96,11 @@ export async function getMovies(releaseDate: string): Promise<Movie[]> {
   return [...movies, ...allMovies.flat()];
 }
 
-export async function getMovieDetails(
-  id: number
-): Promise<MovieDetails | undefined> {
+export async function getMovieDetails(id: string): Promise<MovieDetails> {
   const url = `${API_URL_PREFIX}/movie/${id}?api_key=${process.env.THE_MOVIE_DB_API_KEY}`;
 
   try {
     const res = await fetch(url);
     return (await res.json()) as MovieDetails;
-  } catch (err) {
-    console.log('Fetch error', url);
-  }
-  return undefined;
+  } catch (err) {}
 }

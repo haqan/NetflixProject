@@ -65,7 +65,7 @@ const MovieList = ({ entities }: { entities: Entity[] }) => {
               >
                 {' '}
                 <span className="text-slate-500">IMDB:</span> <Star />
-                {movie.vote_average}
+                {movie.imdbRating}
               </a>
             </div>
             <p className="m-0 h-full w-full self-center p-0">{movie.title}</p>

@@ -1,3 +1,4 @@
+import { getImdbData } from './imdb';
 import {
   getMovies,
   getMovieDetails,
@@ -7,11 +8,22 @@ import {
 } from './themoviedb';
 
 export interface Entity extends Movie, MovieDetails {
+  imdbRating: string;
   internalLink: string;
-  img?: string;
+  img: string;
 }
 
-export async function getEntitiesByDate(releaseDate) {
+function sortByImdbRating(a: Entity, b: Entity) {
+  if (a.imdbRating > b.imdbRating) {
+    return -1;
+  }
+  if (a.imdbRating < b.imdbRating) {
+    return 1;
+  }
+  return 0;
+}
+
+export async function getEntitiesByDate(releaseDate: string) {
   const config = await getConfig();
   const movies = await getMovies(releaseDate);
   const entities = (
@@ -19,13 +31,17 @@ export async function getEntitiesByDate(releaseDate) {
       movies.map(async (m) => {
         return {
           ...m,
-          ...(await getMovieDetails(m.id)),
+          ...(await getMovieDetails(m.id.toString())),
+          imdbRating: (await getImdbData(m.title, m.release_date.slice(0, 4)))
+            ?.imdbRating,
           internalLink: `/movie/${m.id}`,
           img: `${config.images.base_url}original${m.poster_path}`,
         };
       })
     )
-  ).filter((m) => m.homepage?.includes('netflix'));
+  )
+    .filter((m) => m.homepage?.includes('netflix') && m.imdbRating)
+    .sort(sortByImdbRating);
   return entities;
 }
 
